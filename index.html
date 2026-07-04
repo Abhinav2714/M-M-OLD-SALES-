@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BR Reddy Sales Approval Portal</title>
+    <!-- Google Fonts: Outfit for sleek modern headers and text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Mahindra-themed Background Wrapper -->
+    <div class="bg-wrapper">
+        <div class="bg-image" style="background-image: url('mahindra_bg.png');"></div>
+        <div class="bg-overlay"></div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="logo-icon"><i class="fa-solid fa-tractor"></i></div>
+                <div class="logo-text">
+                    <h1>BR REDDY GROUP</h1>
+                    <span class="sub-logo">Sales Approval Portal</span>
+                </div>
+            </div>
+            <div id="header-user-info" class="user-nav-info hidden">
+                <span class="user-badge">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span id="nav-user-email">email@domain.com</span>
+                    <span id="nav-user-role" class="role-badge">Manager</span>
+                </span>
+                <button id="btn-logout" class="btn btn-secondary btn-sm">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Body -->
+        <main class="app-main">
+            
+            <!-- 1. AUTHENTICATION SECTION (Login & Signup) -->
+            <section id="section-auth" class="auth-section">
+                <!-- Login Box -->
+                <div id="card-login" class="auth-card glass-card">
+                    <div class="auth-header">
+                        <h2>Welcome Back</h2>
+                        <p>Sign in to your BR Reddy Group sales account</p>
+                    </div>
+                    <form id="form-login" class="auth-form">
+                        <div class="form-group">
+                            <label for="login-email">Email Address</label>
+                            <div class="input-wrapper">
+                                <i class="fa-regular fa-envelope input-icon"></i>
+                                <input type="email" id="login-email" placeholder="name@brreddy.com" required autocomplete="username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-lock input-icon"></i>
+                                <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i> Login
+                        </button>
+                        <p class="auth-switch">Don't have an account? <a href="#" id="link-goto-signup">Sign Up</a></p>
+                    </form>
+                </div>
+
+                <!-- Signup Box -->
+                <div id="card-signup" class="auth-card glass-card hidden">
+                    <div class="auth-header">
+                        <h2>Create Account</h2>
+                        <p>Register as a Manager or Owner</p>
+                    </div>
+                    <form id="form-signup" class="auth-form">
+                        <div class="form-group">
+                            <label for="signup-name">Full Name</label>
+                            <div class="input-wrapper">
+                                <i class="fa-regular fa-user input-icon"></i>
+                                <input type="text" id="signup-name" placeholder="John Doe" required autocomplete="name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-email">Email Address</label>
+                            <div class="input-wrapper">
+                                <i class="fa-regular fa-envelope input-icon"></i>
+                                <input type="email" id="signup-email" placeholder="name@brreddy.com" required autocomplete="email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-lock input-icon"></i>
+                                <input type="password" id="signup-password" placeholder="••••••••" required autocomplete="new-password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Account Role</label>
+                            <div class="role-selector-container">
+                                <label class="role-option">
+                                    <input type="radio" name="signup-role" value="manager" checked>
+                                    <div class="role-card">
+                                        <i class="fa-solid fa-briefcase"></i>
+                                        <span>Manager</span>
+                                    </div>
+                                </label>
+                                <label class="role-option">
+                                    <input type="radio" name="signup-role" value="owner">
+                                    <div class="role-card">
+                                        <i class="fa-solid fa-crown"></i>
+                                        <span>Owner</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fa-solid fa-user-plus"></i> Create Account
+                        </button>
+                        <p class="auth-switch">Already have an account? <a href="#" id="link-goto-login">Login</a></p>
+                    </form>
+                </div>
+            </section>
+
+
+            <!-- 2. MANAGER DASHBOARD SECTION -->
+            <section id="section-manager" class="dashboard-section hidden">
+                <div class="dashboard-grid">
+                    <!-- Left Column: New Sale Form -->
+                    <div class="dashboard-column-form">
+                        <div class="glass-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-circle-plus"></i> New Sale Entry</h3>
+                                <p>Enter tractor details and pricing for owner approval</p>
+                            </div>
+                            <form id="form-sale" class="sale-form">
+                                <!-- Section A: Customer Details -->
+                                <div class="form-sub-section">
+                                    <h4><i class="fa-solid fa-user-tag"></i> Customer Information</h4>
+                                    <div class="form-row-2">
+                                        <div class="form-group">
+                                            <label for="sale-customer-id">Customer ID</label>
+                                            <input type="text" id="sale-customer-id" placeholder="e.g. CUST-9021" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sale-customer-name">Customer Name</label>
+                                            <input type="text" id="sale-customer-name" placeholder="Full Name" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row-2">
+                                        <div class="form-group">
+                                            <label for="sale-relation">Son of / Wife of</label>
+                                            <input type="text" id="sale-relation" placeholder="Relation Name" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sale-date">Date of Entry</label>
+                                            <input type="date" id="sale-date" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row-2">
+                                        <div class="form-group">
+                                            <label for="sale-village">Village</label>
+                                            <input type="text" id="sale-village" placeholder="Village Name" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sale-mandal">Mandal</label>
+                                            <input type="text" id="sale-mandal" placeholder="Mandal Name" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Section B: Pricing & Charges -->
+                                <div class="form-sub-section">
+                                    <h4><i class="fa-solid fa-indian-rupee-sign"></i> Vehicle Price & Charges</h4>
+                                    <div class="form-row-2">
+                                        <div class="form-group">
+                                            <label for="sale-new-price">New Tractor Price (₹)</label>
+                                            <input type="number" id="sale-new-price" min="0" value="0" required class="calc-trigger">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sale-old-price">Old Tractor Price [Exchange] (₹)</label>
+                                            <input type="number" id="sale-old-price" min="0" value="0" required class="calc-trigger">
+                                        </div>
+                                    </div>
+                                    <div class="form-row-2">
+                                        <div class="form-group">
+                                            <label for="sale-finance">Finance Amount [Loan] (₹)</label>
+                                            <input type="number" id="sale-finance" min="0" value="0" required class="calc-trigger">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sale-implement">Implement Price (₹)</label>
+                                            <input type="number" id="sale-implement" min="0" value="0" required class="calc-trigger">
+                                        </div>
+                                    </div>
+                                    <div class="form-row-2">
+                                        <div class="form-group">
+                                            <label for="sale-tr-insurance">TR & Insurance (₹)</label>
+                                            <input type="number" id="sale-tr-insurance" min="0" value="0" required class="calc-trigger">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sale-documentation">Documentation Charge (₹)</label>
+                                            <input type="number" id="sale-documentation" min="0" value="0" required class="calc-trigger">
+                                        </div>
+                                    </div>
+                                    <div class="form-row-2">
+                                        <div class="form-group">
+                                            <label for="sale-tcs">TCS Charges (₹)</label>
+                                            <input type="number" id="sale-tcs" min="0" value="0" required class="calc-trigger">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sale-accessories">Accessories with Tractor (₹)</label>
+                                            <input type="number" id="sale-accessories" min="0" value="0" required class="calc-trigger">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic Total display card -->
+                                <div class="form-summary-card">
+                                    <div class="summary-line">
+                                        <span>Subtotal Charges:</span>
+                                        <span id="summary-subtotal">₹ 0</span>
+                                    </div>
+                                    <div class="summary-line">
+                                        <span>Less Exchange / Finance:</span>
+                                        <span id="summary-deductions" class="negative">- ₹ 0</span>
+                                    </div>
+                                    <div class="summary-line total">
+                                        <span>Total Price (Net Sale):</span>
+                                        <span id="summary-total">₹ 0</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="button" id="btn-clear-sale" class="btn btn-secondary">
+                                        <i class="fa-solid fa-rotate-left"></i> Clear
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa-solid fa-paper-plane"></i> Submit for Approval
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: My Submissions List -->
+                    <div class="dashboard-column-list">
+                        <div class="glass-card full-height">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-list-check"></i> My Submissions</h3>
+                                <p>Track approval status of your entries</p>
+                            </div>
+                            <div class="table-container">
+                                <table id="table-manager-submissions" class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Customer</th>
+                                            <th>Village</th>
+                                            <th>Total Price</th>
+                                            <th>Status</th>
+                                            <th>Updated Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="manager-submissions-body">
+                                        <!-- Dynamic content injected here -->
+                                        <tr>
+                                            <td colspan="7" class="empty-state">No submissions found. Submit a sale on the left.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- 3. OWNER DASHBOARD SECTION -->
+            <section id="section-owner" class="dashboard-section hidden">
+                <!-- Statistics Row -->
+                <div class="stats-row">
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon info"><i class="fa-solid fa-folder-open"></i></div>
+                        <div class="stat-content">
+                            <span class="stat-label">Total Submissions</span>
+                            <span id="stat-total" class="stat-value">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon warning"><i class="fa-solid fa-hourglass-half"></i></div>
+                        <div class="stat-content">
+                            <span class="stat-label">Pending Approval</span>
+                            <span id="stat-pending" class="stat-value">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon success"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="stat-content">
+                            <span class="stat-label">Approved Sales</span>
+                            <span id="stat-approved" class="stat-value">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon danger"><i class="fa-solid fa-circle-xmark"></i></div>
+                        <div class="stat-content">
+                            <span class="stat-label">Rejected Sales</span>
+                            <span id="stat-rejected" class="stat-value">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Main Panel -->
+                <div class="glass-card admin-panel">
+                    <div class="card-header admin-header-layout">
+                        <div>
+                            <h3><i class="fa-solid fa-shield-halved"></i> Sales Approval Queue</h3>
+                            <p>Overview of all entries from all sales managers</p>
+                        </div>
+                        <!-- Filters -->
+                        <div class="filter-bar">
+                            <div class="filter-group">
+                                <i class="fa-solid fa-magnifying-glass filter-icon"></i>
+                                <input type="text" id="owner-filter-search" placeholder="Search Customer...">
+                            </div>
+                            <div class="filter-group">
+                                <select id="owner-filter-manager">
+                                    <option value="all">All Managers</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <select id="owner-filter-status">
+                                    <option value="all">All Statuses</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Rejected">Rejected</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Queue Table -->
+                    <div class="table-container">
+                        <table id="table-owner-submissions" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Manager</th>
+                                    <th>Customer ID</th>
+                                    <th>Customer Name</th>
+                                    <th>Village</th>
+                                    <th>Total Price</th>
+                                    <th>Status</th>
+                                    <th>Updated Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="owner-submissions-body">
+                                <!-- Dynamic content injected here -->
+                                <tr>
+                                    <td colspan="9" class="empty-state">No submissions to show.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Dynamic Footer -->
+        <footer class="app-footer">
+            <p>&copy; 2026 BR REDDY GROUP. All rights reserved. Powered by Mahindra Tractor Sales Network.</p>
+        </footer>
+    </div>
+
+    <!-- DETAIL VIEW & DECISION MODAL -->
+    <div id="modal-detail" class="modal-overlay hidden">
+        <div class="modal-card glass-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-circle-info"></i> Sale Submission Details</h3>
+                <button id="btn-close-modal" class="btn-icon-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Info Section -->
+                <div class="details-grid-container">
+                    
+                    <div class="details-column">
+                        <h4 class="details-section-title"><i class="fa-solid fa-user-tag"></i> Customer & Mandal</h4>
+                        <table class="detail-info-table">
+                            <tr>
+                                <td>Customer ID:</td>
+                                <td id="modal-cust-id" class="highlight-val">-</td>
+                            </tr>
+                            <tr>
+                                <td>Customer Name:</td>
+                                <td id="modal-cust-name" class="val">-</td>
+                            </tr>
+                            <tr>
+                                <td>Son / Wife of:</td>
+                                <td id="modal-relation" class="val">-</td>
+                            </tr>
+                            <tr>
+                                <td>Village:</td>
+                                <td id="modal-village" class="val">-</td>
+                            </tr>
+                            <tr>
+                                <td>Mandal:</td>
+                                <td id="modal-mandal" class="val">-</td>
+                            </tr>
+                            <tr>
+                                <td>Entry Date:</td>
+                                <td id="modal-date" class="val">-</td>
+                            </tr>
+                            <tr>
+                                <td>Created By:</td>
+                                <td id="modal-manager" class="val">-</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="details-column">
+                        <h4 class="details-section-title"><i class="fa-solid fa-indian-rupee-sign"></i> Financial Breakdown</h4>
+                        <table class="detail-info-table">
+                            <tr>
+                                <td>New Tractor Price:</td>
+                                <td id="modal-new-price" class="val text-right">₹ 0</td>
+                            </tr>
+                            <tr>
+                                <td>Old Tractor [Exchange]:</td>
+                                <td id="modal-old-price" class="val text-right negative">- ₹ 0</td>
+                            </tr>
+                            <tr>
+                                <td>Finance Amount [Loan]:</td>
+                                <td id="modal-finance" class="val text-right negative">- ₹ 0</td>
+                            </tr>
+                            <tr>
+                                <td>Implement Price:</td>
+                                <td id="modal-implement" class="val text-right">₹ 0</td>
+                            </tr>
+                            <tr>
+                                <td>TR & Insurance:</td>
+                                <td id="modal-tr-insurance" class="val text-right">₹ 0</td>
+                            </tr>
+                            <tr>
+                                <td>Documentation Charge:</td>
+                                <td id="modal-documentation" class="val text-right">₹ 0</td>
+                            </tr>
+                            <tr>
+                                <td>TCS Charges:</td>
+                                <td id="modal-tcs" class="val text-right">₹ 0</td>
+                            </tr>
+                            <tr>
+                                <td>Accessories:</td>
+                                <td id="modal-accessories" class="val text-right">₹ 0</td>
+                            </tr>
+                            <tr class="modal-total-row">
+                                <td>Net Sale Total:</td>
+                                <td id="modal-total-price" class="val text-right total-val">₹ 0</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Status Banner / Notes -->
+                <div id="modal-status-banner" class="status-banner info">
+                    <span class="status-label">Current Status:</span>
+                    <span id="modal-status-badge" class="badge badge-warning">Pending</span>
+                </div>
+
+                <!-- Rejection Remarks (Conditional View) -->
+                <div id="modal-remarks-view" class="remarks-box hidden">
+                    <div class="remarks-title"><i class="fa-solid fa-triangle-exclamation"></i> Rejection Reason:</div>
+                    <p id="modal-remarks-text">-</p>
+                </div>
+
+                <!-- Updated timestamp if processed -->
+                <div id="modal-updated-time-view" class="time-stamp-box hidden">
+                    <span class="label">Decision Date:</span>
+                    <span id="modal-updated-time">-</span>
+                </div>
+
+                <!-- Rejection Input Panel (Shown when Owner clicks Reject) -->
+                <div id="modal-rejection-input" class="rejection-input-panel hidden">
+                    <label for="rejection-remarks">Specify Rejection Remarks <span class="required">*</span></label>
+                    <textarea id="rejection-remarks" rows="3" placeholder="Explain why this sale is rejected... e.g., Invalid TCS charge, incorrect customer detail."></textarea>
+                    <div class="rejection-actions">
+                        <button id="btn-cancel-rejection" class="btn btn-secondary btn-sm">Cancel</button>
+                        <button id="btn-confirm-rejection" class="btn btn-danger btn-sm">Confirm Rejection</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decision buttons for Owner -->
+            <div id="modal-footer-decisions" class="modal-footer hidden">
+                <button id="btn-modal-reject" class="btn btn-danger">
+                    <i class="fa-solid fa-ban"></i> Reject Submission
+                </button>
+                <button id="btn-modal-approve" class="btn btn-success">
+                    <i class="fa-solid fa-check-double"></i> Approve Submission
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK (compat build - no bundler needed) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <!-- Your Firebase project keys (fill this in - see FIREBASE_SETUP.md) -->
+    <script src="firebase-config.js"></script>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>
